@@ -1,6 +1,6 @@
 """
-Code to scrape ProductHunt reviews for a
-specific product.
+Code to scrape ProductHunt reviews and
+add them to Supabase database.
 """
 
 from selenium import webdriver
@@ -80,7 +80,6 @@ def scrape_content(driver, cursor, url):
             except Exception as e:
                 logger.error(f"Database insertion error: {e}")
 
-    # Close the driver
     driver.quit()
 
 
