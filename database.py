@@ -8,16 +8,15 @@ from loguru import logger
 from bs4 import BeautifulSoup
 import os
 import psycopg2
-import streamlit as st
-from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
+import streamlit as st
+import time
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-import time
-
+from selenium.webdriver.support.ui import WebDriverWait
 
 def supabase_connect():
     USER = os.getenv("user")
