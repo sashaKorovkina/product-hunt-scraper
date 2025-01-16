@@ -15,9 +15,7 @@ URL = "https://www.producthunt.com/products/final-round-ai/reviews"
 XPATH = "//div[contains(@class, 'review')]"
 TIMEOUT = 20
 
-st.title("Product Hunt Reviews")
-st.markdown("You should see some random Football match text below in about 21 seconds")
-
+st.title("Reviews")
 
 firefoxOptions = Options()
 firefoxOptions.add_argument("--headless")
