@@ -5,3 +5,4 @@ openai~=1.59.7
 psycopg2-binary
 selenium~=4.27.1
 loguru~=0.7.3
+webdriver-manager
