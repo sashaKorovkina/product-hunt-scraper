@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.firefox import GeckoDriverManager
-import streamlit as st
+
 
 def write_features(data):
     """
@@ -60,7 +60,6 @@ def analyze(link):
     if result:
         logger.info("Link already exists.")
     else:
-
         firefoxOptions = Options()
         firefoxOptions.add_argument("--headless")
         service = Service(GeckoDriverManager().install())
@@ -68,6 +67,7 @@ def analyze(link):
             options=firefoxOptions,
             service=service,
         )
+
         click_btn_next_page(driver, link)
         scrape_content(driver, cursor, connection, link)
 

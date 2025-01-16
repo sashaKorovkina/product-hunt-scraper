@@ -3,16 +3,20 @@ Code to scrape ProductHunt reviews and
 add them to Supabase database.
 """
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from loguru import logger
 from bs4 import BeautifulSoup
-from selenium.webdriver.common.action_chains import ActionChains
-import time
 import os
 import psycopg2
+import streamlit as st
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+import time
 
 
 def supabase_connect():
@@ -39,7 +43,16 @@ def supabase_connect():
 
 
 def click_btn_next_page(driver, url):
-    driver.get(url)
+    try:
+        driver.get(URL)
+        WebDriverWait(driver, TIMEOUT).until(
+            EC.visibility_of_element_located((By.XPATH, XPATH))
+        )
+        st.write("Page loaded successfully!")
+    except TimeoutException:
+        st.warning("Timed out waiting for page to load")
+        driver.quit()
+
     time.sleep(3)
     button_xpath = '/html/body/div[1]/div/div[3]/main/div/button'
     while True:
