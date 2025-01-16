@@ -41,7 +41,7 @@ def click_btn_next_page(driver):
             logger.info("Button clicked!")
             time.sleep(3)
         except Exception as e:
-            logger.error(e)
+            logger.info('No more buttons to click')
             break
 
 
