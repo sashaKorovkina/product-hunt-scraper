@@ -1,0 +1,7 @@
+streamlit~=1.41.1
+requests~=2.32.3
+beautifulsoup4~=4.12.3
+openai~=1.59.7
+psycopg2~=2.9.10
+selenium~=4.27.1
+loguru~=0.7.3

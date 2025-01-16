@@ -45,7 +45,7 @@ def write_features(data):
 
     # Extract response text and format as JSON
     response = completion.choices[0].message.content
-    print(response)
+    return response
 
 
 def analyze(link):
@@ -58,7 +58,8 @@ def analyze(link):
     )
 
     results = cursor.fetchall()
-    write_features(results)
+    response = write_features(results)
+    return response
 
 
 if __name__ == "__main__":
