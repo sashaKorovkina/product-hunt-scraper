@@ -3,7 +3,7 @@ import requests
 from analyzer import analyze
 
 # Streamlit app title
-st.title("Simple Link Content Viewer")
+st.title("ProductHunt Review Summaries")
 
 # User input for the link
 link = st.text_input("Enter a URL:", placeholder="https://example.com")
