@@ -1,12 +1,12 @@
 from database import supabase_connect
 from openai import OpenAI
 from database import click_btn_next_page, scrape_content
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from loguru import logger
 import os
-
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 def write_features(data):
     """
@@ -60,7 +60,14 @@ def analyze(link):
         logger.info("Link already exists.")
     else:
         logger.info("Link does not exist.")
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        options = Options()
+        options.add_argument("--headless")  # Run in headless mode
+        options.add_argument("--no-sandbox")  # Required for Streamlit Cloud
+        options.add_argument("--disable-dev-shm-usage")  # Prevent memory issues
+        options.add_argument("--disable-gpu")  # Disable GPU acceleration
+        options.add_argument("--remote-debugging-port=9222")  # Optional, for debugging
+
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         click_btn_next_page(driver, link)
         scrape_content(driver, cursor, connection, link)
 
