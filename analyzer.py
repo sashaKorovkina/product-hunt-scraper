@@ -1,4 +1,4 @@
-from main import supabase_connect
+from database import supabase_connect
 import os
 from openai import OpenAI
 import re
