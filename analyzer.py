@@ -1,9 +1,7 @@
 from database import supabase_connect
 import os
 from openai import OpenAI
-import re
-import json
-
+from loguru import logger
 
 def write_features(data):
     """
@@ -50,6 +48,16 @@ def write_features(data):
 
 def analyze(link):
     cursor, connection = supabase_connect()
+    cursor.execute(
+        "SELECT link FROM public.products WHERE link = %s",
+        (link,)
+    )
+    result = cursor.fetchone()
+    if result:
+        logger.info("Link already exists.")
+    else:
+        logger.info("Link does not exist.")
+
     cursor.execute(
         "SELECT review "
         "FROM public.products "

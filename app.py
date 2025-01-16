@@ -11,6 +11,7 @@ link = st.text_input("Enter a URL:", placeholder="https://example.com")
 if st.button("Fetch Content"):
     if link:
         try:
+            # check
             text = analyze(link)
             bold_text = text.replace('**', '✱✱')  # Highlight for processing bold later
             st.markdown(f"**Webpage Content:**\n{bold_text}", unsafe_allow_html=True)
