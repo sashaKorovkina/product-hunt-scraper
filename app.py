@@ -19,6 +19,7 @@ link = st.text_input("Enter a URL:", placeholder="https://example.com")
 if st.button("Fetch Content"):
     if link:
         try:
+            # Set up Selenium WebDriver with headless Firefox
             firefoxOptions = Options()
             firefoxOptions.add_argument("--headless")
             service = Service(GeckoDriverManager().install())
@@ -27,21 +28,29 @@ if st.button("Fetch Content"):
                 service=service,
             )
 
+            # Navigate to the URL
+            driver.get(link)
+
+            # Wait for the button to be visible
             try:
                 WebDriverWait(driver, TIMEOUT).until(
-                    EC.visibility_of_element_located((By.XPATH, XPATH,))
+                    EC.visibility_of_element_located((By.XPATH, XPATH))
                 )
+                st.success("Page loaded successfully!")
             except TimeoutException:
-                st.warning("Timed out waiting for page to load")
+                st.warning("Timed out waiting for the button to load")
                 driver.quit()
-            elements = driver.find_elements(By.XPATH, XPATH)
-            st.write([el.text for el in elements])
-            driver.quit()
 
-            # text = analyze(link, driver)
-            # bold_text = text.replace('**', '✱✱')
-            # st.markdown(f"**Webpage Content:**\n{bold_text}", unsafe_allow_html=True)
-        except requests.exceptions.RequestException as e:
-            st.error(f"Error fetching the URL: {e}")
+            # Click the button
+            try:
+                button = driver.find_element(By.XPATH, XPATH)
+                button.click()
+                st.success("Button clicked successfully!")
+            except Exception as e:
+                st.error(f"Error clicking the button: {e}")
+                driver.quit()
+        finally:
+            # Clean up the driver
+            driver.quit()
     else:
         st.warning("Please enter a valid URL.")
