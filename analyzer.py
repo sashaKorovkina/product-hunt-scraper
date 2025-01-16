@@ -26,21 +26,19 @@ def write_features(data):
             {
                 "role": "system",
                 "content": f"""
-                    Based on the list of reviews provided, extract specific features or aspects 
-                    that users explicitly like or dislike about the product. For each feature, 
-                    group positive and negative sentiments clearly and concisely. For example, 
-                    if a user mentions the product's speed positively, it should appear under 
-                    "Positive." If another user mentions poor customer service, it should appear 
-                    under "Negative." Only include examples directly tied to product features or 
-                    services. Reviews: {data}
+                    Based on the list of reviews provided, make 2 lists - one of positive features 
+                    and one of negative features. Group them by theme, with a title sentence and the supporting
+                    reviews under it as bullet points. Disregard generic reviews which do not reference specific
+                    features. The reviews are here: {data}.
                 """
             },
             {
                 "role": "user",
                 "content": f"""
-                    Based on the list of reviews provided, extract specific features or aspects 
-                    that users explicitly like or dislike about the product. For each feature, 
-                    group positive and negative sentiments clearly and concisely. Reviews: {data}
+                    Based on the list of reviews provided, make 2 lists - one of positive features 
+                    and one of negative features. Group them by theme, with a title sentence and the supporting
+                    reviews under it as bullet points. Disregard generic reviews which do not reference specific
+                    features. The reviews are here: {data}.
                 """
             }
         ]
