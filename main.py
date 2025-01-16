@@ -13,9 +13,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 
 
-def scrape_content():
+def scrape_content(driver):
     # Set up the webdriver
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get("https://www.producthunt.com/products/final-round-ai/reviews")
     element = driver.find_element(By.XPATH, '//*[@id="root-container"]/div/div[3]/main/div/div[5]')
     sub_elements = element.find_elements(By.XPATH, './*')  # Direct children
@@ -32,9 +31,7 @@ def scrape_content():
     driver.quit()
 
 
-def click_btn_next_page():
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-
+def click_btn_next_page(driver):
     driver.get("https://www.producthunt.com/products/final-round-ai/reviews")
     time.sleep(3)
     button_xpath = '/html/body/div[1]/div/div[3]/main/div/button'
@@ -50,5 +47,6 @@ def click_btn_next_page():
 
 
 if __name__ == "__main__":
-    click_btn_next_page()
-    scrape_content()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    click_btn_next_page(driver)
+    scrape_content(driver)
