@@ -35,21 +35,18 @@ def scrape_content():
 def click_btn_next_page():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
-    try:
-        driver.get("https://www.producthunt.com/products/final-round-ai/reviews")
-        time.sleep(3)
-        button_xpath = '/html/body/div[1]/div/div[3]/main/div/button'
-        while True:
-            try:
-                button = driver.find_element(By.XPATH, button_xpath)
-                ActionChains(driver).move_to_element(button).click(button).perform()
-                print("Button clicked")
-                time.sleep(3)
-            except Exception as e:
-                logger.error(e)
-                break
-    finally:
-        driver.quit()
+    driver.get("https://www.producthunt.com/products/final-round-ai/reviews")
+    time.sleep(3)
+    button_xpath = '/html/body/div[1]/div/div[3]/main/div/button'
+    while True:
+        try:
+            button = driver.find_element(By.XPATH, button_xpath)
+            ActionChains(driver).move_to_element(button).click(button).perform()
+            print("Button clicked")
+            time.sleep(3)
+        except Exception as e:
+            logger.error(e)
+            break
 
 
 if __name__ == "__main__":
