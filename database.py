@@ -65,10 +65,11 @@ def scrape_content(driver, cursor, connection, url):
         )
 
         for element in elements:
+
+            review_text = element.text.strip()  # Extract the review text
             if review_text is None:
                 logger.debug('Picked up empty review...')
                 continue
-            review_text = element.text.strip()  # Extract the review text
             logger.debug(f"Extracted review: {review_text}")
 
             try:
