@@ -72,12 +72,8 @@ def scrape_content(driver, cursor, url):
             try:
                 logger.info('Attempting to insert data into the database...')
                 cursor.execute(
-                    "INSERT INTO public.products (review) VALUES (%s)",
-                    (review_text,)
-                )
-                cursor.execute(
-                    "INSERT INTO public.products (link) VALUES (%s)",
-                    (url,)
+                    "INSERT INTO public.products (review), (link) VALUES (%s, %s)",
+                    (review_text, url,)
                 )
                 connection.commit()
                 logger.info('Data successfully inserted and transaction committed.')
