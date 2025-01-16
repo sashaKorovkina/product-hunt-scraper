@@ -38,8 +38,6 @@ try:
         EC.visibility_of_element_located((By.XPATH, XPATH,))
     )
     logger.debug('Successfully discovered elements')
-
-    # Find the button and click it
     button = driver.find_element(By.XPATH, XPATH)
     button.click()
     logger.debug('Button clicked successfully!')
