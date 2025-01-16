@@ -15,7 +15,6 @@ import time
 
 def scrape_content(driver):
     # Set up the webdriver
-    driver.get("https://www.producthunt.com/products/final-round-ai/reviews")
     element = driver.find_element(By.XPATH, '//*[@id="root-container"]/div/div[3]/main/div/div[5]')
     sub_elements = element.find_elements(By.XPATH, './*')  # Direct children
 
@@ -39,7 +38,7 @@ def click_btn_next_page(driver):
         try:
             button = driver.find_element(By.XPATH, button_xpath)
             ActionChains(driver).move_to_element(button).click(button).perform()
-            print("Button clicked")
+            logger.info("Button clicked!")
             time.sleep(3)
         except Exception as e:
             logger.error(e)
