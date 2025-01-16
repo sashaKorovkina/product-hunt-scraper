@@ -54,7 +54,6 @@ def click_btn_next_page(driver, url):
 
 
 def scrape_content(driver, cursor, url):
-    # Set up the webdriver
     element = driver.find_element(By.XPATH, '//*[@id="root-container"]/div/div[3]/main/div/div[5]')
     sub_elements = element.find_elements(By.XPATH, './*')  # Direct children
 
