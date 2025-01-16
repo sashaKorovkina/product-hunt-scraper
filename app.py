@@ -12,7 +12,14 @@ from loguru import logger
 
 
 URL = "https://www.producthunt.com/products/final-round-ai/reviews"
-XPATH = "//div[contains(@class, 'review')]"
+XPATH = "//*[@id=\"root-container\"]/div/div[3]/main/div/button"
+
+# //*[@id="root-container"]/div/div[3]/main/div/button
+# <button type="button" class="styles_reset__0clCw styles_button__BmLM4 styles_full__j4aVK mb-8" data-sentry-element="Element" data-sentry-component="Button" data-sentry-source-file="index.tsx">Show 72 more</button>
+# <button type="button" class="styles_reset__0clCw styles_button__BmLM4 styles_full__j4aVK mb-8" data-sentry-element="Element" data-sentry-component="Button" data-sentry-source-file="index.tsx">Show 72 more</button>
+# #root-container > div > div.styles_layout__cOQYA.pt-6.sm\:pt-10.styles_container__eS_WB > main > div > button
+# document.querySelector("#root-container > div > div.styles_layout__cOQYA.pt-6.sm\\:pt-10.styles_container__eS_WB > main > div > button")
+# //*[@id="root-container"]/div/div[3]/main/div/button
 TIMEOUT = 20
 
 st.title("Reviews")
