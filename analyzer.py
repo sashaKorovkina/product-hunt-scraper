@@ -50,7 +50,7 @@ def write_features(data):
     return response
 
 
-def analyze(link):
+def analyze(link, driver):
     cursor, connection = supabase_connect()
     cursor.execute(
         "SELECT link FROM public.products WHERE link = %s",
@@ -60,14 +60,6 @@ def analyze(link):
     if result:
         logger.info("Link already exists.")
     else:
-        firefoxOptions = Options()
-        firefoxOptions.add_argument("--headless")
-        service = Service(GeckoDriverManager().install())
-        driver = webdriver.Firefox(
-            options=firefoxOptions,
-            service=service,
-        )
-
         click_btn_next_page(driver, link)
         scrape_content(driver, cursor, connection, link)
 
