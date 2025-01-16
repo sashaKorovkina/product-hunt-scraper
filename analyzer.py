@@ -1,7 +1,12 @@
 from database import supabase_connect
-import os
 from openai import OpenAI
+from database import click_btn_next_page, scrape_content
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from loguru import logger
+import os
+
 
 def write_features(data):
     """
@@ -57,6 +62,9 @@ def analyze(link):
         logger.info("Link already exists.")
     else:
         logger.info("Link does not exist.")
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        click_btn_next_page(driver, link)
+        scrape_content(driver, cursor, link)
 
     cursor.execute(
         "SELECT review "

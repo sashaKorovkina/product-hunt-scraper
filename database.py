@@ -53,7 +53,7 @@ def click_btn_next_page(driver, url):
             break
 
 
-def scrape_content(driver, cursor, url):
+def scrape_content(driver, cursor, connection, url):
     element = driver.find_element(By.XPATH, '//*[@id="root-container"]/div/div[3]/main/div/div[5]')
     sub_elements = element.find_elements(By.XPATH, './*')  # Direct children
 
@@ -87,4 +87,4 @@ if __name__ == "__main__":
     cursor, connection = supabase_connect()
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     click_btn_next_page(driver, link)
-    scrape_content(driver, cursor, link)
+    scrape_content(driver, cursor, connection, link)
