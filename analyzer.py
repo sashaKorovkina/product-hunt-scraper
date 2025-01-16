@@ -67,7 +67,6 @@ def analyze(link):
             options=firefoxOptions,
             service=service,
         )
-
         click_btn_next_page(driver, link)
         scrape_content(driver, cursor, connection, link)
 
