@@ -64,7 +64,7 @@ def analyze(link):
         logger.info("Link does not exist.")
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         click_btn_next_page(driver, link)
-        scrape_content(driver, cursor, link)
+        scrape_content(driver, cursor, connection, link)
 
     cursor.execute(
         "SELECT review "
