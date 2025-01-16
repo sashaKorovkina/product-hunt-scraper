@@ -70,6 +70,7 @@ def scrape_content(driver, cursor, url):
             logger.debug(f"Extracted review: {review_text}")
 
             try:
+                logger.info('Attempting to insert data into the database...')
                 cursor.execute(
                     "INSERT INTO public.products (review) VALUES (%s)",
                     (review_text,)
@@ -78,6 +79,8 @@ def scrape_content(driver, cursor, url):
                     "INSERT INTO public.products (link) VALUES (%s)",
                     (url,)
                 )
+                connection.commit()
+                logger.info('Data successfully inserted and transaction committed.')
             except Exception as e:
                 logger.error(f"Database insertion error: {e}")
 
