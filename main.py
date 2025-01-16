@@ -11,6 +11,14 @@ from loguru import logger
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.action_chains import ActionChains
 import time
+import os
+from supabase import create_client, Client
+
+USER = os.getenv("user")
+PASSWORD = os.getenv("password")
+HOST = os.getenv("host")
+PORT = os.getenv("port")
+DBNAME = os.getenv("dbname")
 
 
 def scrape_content(driver):
