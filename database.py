@@ -43,10 +43,13 @@ def supabase_connect():
 
 
 def click_btn_next_page(driver, url):
+    TIMEOUT = 20
+    button_xpath = '/html/body/div[1]/div/div[3]/main/div/button'
+
     try:
-        driver.get(URL)
+        driver.get(url)
         WebDriverWait(driver, TIMEOUT).until(
-            EC.visibility_of_element_located((By.XPATH, XPATH))
+            EC.visibility_of_element_located((By.XPATH, button_xpath))
         )
         st.write("Page loaded successfully!")
     except TimeoutException:
@@ -54,7 +57,7 @@ def click_btn_next_page(driver, url):
         driver.quit()
 
     time.sleep(3)
-    button_xpath = '/html/body/div[1]/div/div[3]/main/div/button'
+
     while True:
         try:
             button = driver.find_element(By.XPATH, button_xpath)
