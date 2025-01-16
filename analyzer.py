@@ -60,6 +60,7 @@ def analyze(link):
     if result:
         logger.info("Link already exists.")
     else:
+
         firefoxOptions = Options()
         firefoxOptions.add_argument("--headless")
         service = Service(GeckoDriverManager().install())
