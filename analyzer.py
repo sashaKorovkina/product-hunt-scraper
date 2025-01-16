@@ -59,15 +59,26 @@ def analyze(link):
     if result:
         logger.info("Link already exists.")
     else:
-        logger.info("Link does not exist.")
-        options = Options()
-        options.add_argument("--headless")  # Run in headless mode
-        options.add_argument("--no-sandbox")  # Required for Streamlit Cloud
-        options.add_argument("--disable-dev-shm-usage")  # Prevent memory issues
-        options.add_argument("--disable-gpu")  # Disable GPU acceleration
-        options.add_argument("--remote-debugging-port=9222")  # Optional, for debugging
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+        from selenium.webdriver.chrome.service import Service
+        from webdriver_manager.chrome import ChromeDriverManager
+        from webdriver_manager.core.os_manager import ChromeType
 
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        @st.cache_resource
+        def get_driver():
+            return webdriver.Chrome(
+                service=Service(
+                    ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+                ),
+                options=options,
+            )
+
+        options = Options()
+        options.add_argument("--disable-gpu")
+        options.add_argument("--headless")
+
+        driver = get_driver()
         click_btn_next_page(driver, link)
         scrape_content(driver, cursor, connection, link)
 
