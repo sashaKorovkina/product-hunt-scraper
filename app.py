@@ -1,44 +1,21 @@
 import streamlit as st
-import time
-from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.firefox import GeckoDriverManager
-from loguru import logger
-from database import scrape_content, supabase_connect
+import requests
+from analyzer import analyze
 
-url = "https://www.producthunt.com/products/final-round-ai/reviews"
-XPATH = "//*[@id=\"root-container\"]/div/div[3]/main/div/button"
-TIMEOUT = 20
+# Streamlit app title
+st.title("Simple Link Content Viewer")
 
-st.title("Reviews")
+# User input for the link
+link = st.text_input("Enter a URL:", placeholder="https://example.com")
 
-firefoxOptions = Options()
-firefoxOptions.add_argument("--headless")
-service = Service(GeckoDriverManager().install())
-driver = webdriver.Firefox(
-    options=firefoxOptions,
-    service=service,
-)
+if st.button("Fetch Content"):
+    if link:
+        try:
+            text = analyze(link)
+            bold_text = text.replace('**', '✱✱')  # Highlight for processing bold later
+            st.markdown(f"**Webpage Content:**\n{bold_text}", unsafe_allow_html=True)
 
-try:
-    WebDriverWait(driver, TIMEOUT).until(
-        EC.visibility_of_element_located((By.XPATH, XPATH,))
-    )
-    button = driver.find_element(By.XPATH, XPATH)
-    button.click()
-    logger.debug('Button clicked successfully!')
-    cursor, connection = supabase_connect()
-    scrape_content(driver, cursor, connection, url)
-except TimeoutException:
-    st.warning("Timed out waiting for page to load")
-    driver.quit()
-
-# time.sleep(10)
-# elements = driver.find_elements(By.XPATH, XPATH)
-# st.write([el.text for el in elements])
-# driver.quit()
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error fetching the URL: {e}")
+    else:
+        st.warning("Please enter a valid URL.")

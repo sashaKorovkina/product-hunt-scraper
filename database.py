@@ -86,9 +86,10 @@ def scrape_content(driver, cursor, connection, url):
                 logger.debug('Picked up empty review...')
                 continue
             logger.debug(f"Extracted review: {review_text}")
+            if review_text == "":
+                continue
 
             try:
-                logger.info('Attempting to insert data into the database...')
                 cursor.execute(
                     "INSERT INTO public.products (review, link) VALUES (%s, %s)",
                     (review_text, url)
@@ -102,8 +103,8 @@ def scrape_content(driver, cursor, connection, url):
 
 
 if __name__ == "__main__":
-    link = "https://www.producthunt.com/products/final-round-ai/reviews"
+    link = "https://www.producthunt.com/products/meetgeek/reviews"
     cursor, connection = supabase_connect()
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     click_btn_next_page(driver, link)
     scrape_content(driver, cursor, connection, link)
