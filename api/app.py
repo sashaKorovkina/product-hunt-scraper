@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from database import supabase_connect, click_btn_next_page, scrape_content
 from selenium import webdriver
+import os
 
 app = Flask(__name__)
 
@@ -24,4 +25,4 @@ def add_product():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
