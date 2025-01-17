@@ -7,3 +7,4 @@ selenium~=4.27.1
 loguru~=0.7.3
 webdriver-manager
 selenium
+Flask~=3.1.0
