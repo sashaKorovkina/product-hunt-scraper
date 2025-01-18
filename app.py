@@ -1,5 +1,6 @@
-import streamlit as st
 import requests
+import streamlit as st
+from selenium import webdriver
 from analyzer import analyze
 
 # Streamlit app title
@@ -11,7 +12,8 @@ link = st.text_input("Enter a URL:", placeholder="https://example.com")
 if st.button("Fetch Content"):
     if link:
         try:
-            text = analyze(link)
+            driver = webdriver.Chrome()
+            text = analyze(link, driver)
             bold_text = text.replace('**', '✱✱')  # Highlight for processing bold later
             st.markdown(f"**Webpage Content:**\n{bold_text}", unsafe_allow_html=True)
 
